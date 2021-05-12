@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import palette from '../styles/palette';
-import {
-  getTodosAPI,
-  writeTodosAPI,
-  deleteTodosAPI,
-} from '../lib/api/todo';
 
 import TrashCanIcon from '../trash_can.svg';
 import CheckMarkIcon from '../check_mark.svg';
@@ -96,37 +91,16 @@ const Container = styled.div`
   }
 `;
 
-const TodoList = () => {
-  const [localTodos, setLocalTodos] = useState([]);
-
-  const checkTodo = async (id) => {
-    await writeTodosAPI(id);
-
-    const newTodos = localTodos.map(todo => {
-      if (todo.id === id) return { ...todo, checked: !todo.checked };
-
-      return todo;
-    });
-    setLocalTodos(newTodos);
-  };
-  const deleteTodo = async (id) => {
-    await deleteTodosAPI(id);
-    const newTodos = localTodos.filter(todo => todo.id !== id);
-    setLocalTodos(newTodos);
-  };
-
-  useEffect(() => {
-    (async function () {
-      const { data } = await getTodosAPI();
-      setLocalTodos(data);
-    })();
-  }, []);
-
+const TodoList = ({
+  todos,
+  onCheckTodo,
+  onDeleteTodo,
+}) => {
   return (
     <Container>
       <ul className='todo-list'>
         {
-          localTodos.map(todo => (
+          todos.map(todo => (
             <li className='todo-item' key={todo.id}>
               <div className='todo-left-side'>
                 <div className={`todo-color-block bg-${todo.color}`}/>
@@ -142,13 +116,13 @@ const TodoList = () => {
                         src={TrashCanIcon}
                         alt='trash-can'
                         className='todo-trash-can'
-                        onClick={() => deleteTodo(todo.id)}
+                        onClick={() => onDeleteTodo(todos, todo.id)}
                       />
                       <img
                         src={CheckMarkIcon}
                         alt='check-mark'
                         className='todo-check-mark'
-                        onClick={() => checkTodo(todo.id)}
+                        onClick={() => onCheckTodo(todos, todo.id)}
                       />
                     </>
                   )
@@ -158,7 +132,7 @@ const TodoList = () => {
                     <button
                       type='button'
                       className='todo-button'
-                      onClick={() => checkTodo(todo.id)}
+                      onClick={() => onCheckTodo(todos, todo.id)}
                     />
                   )
                 }
