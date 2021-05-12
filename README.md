@@ -9,10 +9,12 @@ react와 node, redux로 만든 Todo App입니다.
 
 
 - TodoList 보여주기
+- TodoList 불러오는 동안 로딩 화면
 - Todo 추가하기
 - 실행한 Todo 체크하기
 - 실행한 Todo 삭제하기
 - APIserver
+
 
 ## I**nstallation**
 
