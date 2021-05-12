@@ -1,7 +1,7 @@
-# Todo-app / react
+# Todo-app / react-redux-sync
 
 
-react와 node로 만든 Todo App입니다.
+react와 node, redux로 만든 Todo App입니다.
 
 클라이언트와 서버 모두 포함된 monolith application입니다.
 
@@ -18,8 +18,8 @@ react와 node로 만든 Todo App입니다.
 
 
 ```
-git clone https://github.com/idbdyoung/TodoApp-react.git
-cd TodoApp-react
+git clone https://github.com/idbdyoung/TodoApp-react-redux-sync.git
+cd TodoApp-react-redux-sync
 npm install
 ```
 
